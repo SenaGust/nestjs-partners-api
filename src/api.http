@@ -37,16 +37,17 @@ DELETE http://localhost:3000/events/{{eventId}}
 GET  http://localhost:3000/events/{{eventId}}/spots
  
 ###
-# @name createPost
+# @name createSpot
 POST  http://localhost:3000/events/{{eventId}}/spots
 Content-Type: application/json
 
 {
-    "name": "A3"
+    "name": "A1"
 }
 
 ###
-@spotId = {{ createPost.response.body.id }}
+@spotId = {{ createSpot.response.body.id }}
+@spotName = {{ createSpot.response.body.name }}
 
 ###
 GET http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
@@ -61,3 +62,15 @@ Content-Type: application/json
 
 ### 
 DELETE http://localhost:3000/events/{{eventId}}/spots/{{spotId}}
+
+
+###
+POST http://localhost:3000/events/{{eventId}}/reserve
+Content-Type: application/json
+
+{
+    "spots": ["A1", "A2", "A3"],
+    "ticketKind": "full",
+    "email": "test@test.com"
+}
+
